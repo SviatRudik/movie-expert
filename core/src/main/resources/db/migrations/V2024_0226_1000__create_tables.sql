@@ -7,7 +7,7 @@ CREATE TABLE posts (
                        FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
--- Создание таблицы фильмов
+
 CREATE TABLE movies (
                         movie_id SERIAL PRIMARY KEY,
                         title VARCHAR(255) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE movies (
                         genre VARCHAR(255)
 );
 
--- Создание таблицы подписок
+
 CREATE TABLE subscriptions (
                                subscription_id SERIAL PRIMARY KEY,
                                user_id INT,

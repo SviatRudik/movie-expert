@@ -4,11 +4,13 @@ import com.movie.expert.daos.AuthDAO;
 import com.movie.expert.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @AllArgsConstructor
-public class AuthServiceImpl implements AuthService{
+@Service
+public class AuthServiceImpl implements AuthService {
     private final AuthDAO authDAO;
 
     @Override

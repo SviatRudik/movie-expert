@@ -1,11 +1,10 @@
 package com.movie.expert.models.exceptions;
 
-import lombok.Getter;
 
 public class UniquenessException extends PlatformException {
-    @Getter
+
     private final Integer errorCode;
-    @Getter
+
     private final String errorMsg;
     public static final int ERROR_CODE = 1;
 
@@ -15,12 +14,12 @@ public class UniquenessException extends PlatformException {
     }
 
     @Override
-    public Integer errorCode() {
+    public Integer getErrorCode() {
         return this.errorCode;
     }
 
     @Override
-    public String errorMsg() {
-        return this.getMessage();
+    public String getErrorMsg() {
+        return this.errorMsg;
     }
 }

@@ -4,12 +4,15 @@ import com.movie.expert.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @AllArgsConstructor
+@Repository
 public class AuthDAOImpl implements AuthDAO {
     private final JdbcTemplate jdbcTemplate;
+
     @Override
     public Optional<User> loadUserByUsername(String username) {
         String sql = "SELECT id, username, password, email," +

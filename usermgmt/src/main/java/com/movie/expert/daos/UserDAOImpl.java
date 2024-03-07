@@ -1,7 +1,7 @@
 package com.movie.expert.daos;
 
 import com.movie.expert.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,13 +11,9 @@ import java.util.Optional;
 
 
 @Repository
+@AllArgsConstructor
 public class UserDAOImpl implements UserDAO {
     private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public UserDAOImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public Optional<User> loadUserByUsername(String username) {
