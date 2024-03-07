@@ -2,7 +2,7 @@ package com.movie.expert.controllers;
 
 import com.movie.expert.models.RegistrationRequest;
 import com.movie.expert.models.RegistrationResponse;
-import com.movie.expert.models.User;
+import com.movie.expert.models.UserDTO;
 import com.movie.expert.services.UserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,10 +29,10 @@ public class UsersController {
     }
 
     @GetMapping("/login")
-    ResponseEntity<User> login() {
+    ResponseEntity<UserDTO> login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        User response = userService.loadUserByUsername(username);
+        UserDTO response = userService.loadUserByUsername(username);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
