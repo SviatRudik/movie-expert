@@ -10,7 +10,6 @@
     <modules>
         <module>usermgmt</module>
         <module>core</module>
-        <module>core</module>
         <module>common</module>
     </modules>
     <properties>

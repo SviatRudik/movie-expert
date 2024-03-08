@@ -9,7 +9,10 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO  {
+public class UserInfo {
+    @Getter
+    @Setter
+    private Long id;
     @Getter
     @Setter
     private String username;

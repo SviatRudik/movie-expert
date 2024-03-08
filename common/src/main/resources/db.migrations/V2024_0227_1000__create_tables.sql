@@ -1,9 +1,10 @@
 CREATE TABLE posts
 (
-    post_id SERIAL PRIMARY KEY,
-    user_id BIGINT,
-    title   VARCHAR(255) NOT NULL,
+    id SERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    title   VARCHAR(100) NOT NULL,
     content TEXT,
+    mark INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 

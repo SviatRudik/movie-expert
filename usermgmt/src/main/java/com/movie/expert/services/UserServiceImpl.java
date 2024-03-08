@@ -4,7 +4,7 @@ import com.movie.expert.daos.UserDAO;
 import com.movie.expert.models.RegistrationRequest;
 import com.movie.expert.models.RegistrationResponse;
 import com.movie.expert.models.User;
-import com.movie.expert.models.UserDTO;
+import com.movie.expert.models.UserInfo;
 import com.movie.expert.models.exceptions.UniquenessException;
 import com.movie.expert.models.exceptions.ValidationException;
 import jakarta.validation.ConstraintViolation;
@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
     private final Validator validator;
 
     @Override
-    public UserDTO loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserDTO> optUser = userDAO.loadUserByUsername(username);
+    public UserInfo loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<UserInfo> optUser = userDAO.loadUserByUsername(username);
         UsernameNotFoundException ex = new UsernameNotFoundException("User is not found for username: " + username);
         return optUser.orElseThrow(() -> ex);
     }
@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
     }
 
     private void checkUserUniqueness(RegistrationRequest request) throws UniquenessException {
-        Optional<UserDTO> optUsernameUser = userDAO.loadUserByUsername(request.getUsername());
-        Optional<UserDTO> optEmailUser = userDAO.loadUserByEmail(request.getEmail());
+        Optional<UserInfo> optUsernameUser = userDAO.loadUserByUsername(request.getUsername());
+        Optional<UserInfo> optEmailUser = userDAO.loadUserByEmail(request.getEmail());
         if (optEmailUser.isPresent()) {
             throw new UniquenessException("Email is already registered: " + request.getEmail());
         } else if (optUsernameUser.isPresent()) {

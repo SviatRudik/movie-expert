@@ -2,8 +2,9 @@ package com.movie.expert.controllers;
 
 import com.movie.expert.models.RegistrationRequest;
 import com.movie.expert.models.RegistrationResponse;
-import com.movie.expert.models.UserDTO;
-import com.movie.expert.services.UserServiceImpl;
+import com.movie.expert.models.UserInfo;
+import com.movie.expert.services.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -12,14 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
-@ControllerAdvice
+@AllArgsConstructor
 public class UsersController {
 
-    private final UserServiceImpl userService;
-
-    public UsersController(UserServiceImpl userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @PostMapping("/public/registration")
     ResponseEntity<RegistrationResponse> registration(@RequestBody RegistrationRequest request) {
@@ -29,10 +26,10 @@ public class UsersController {
     }
 
     @GetMapping("/login")
-    ResponseEntity<UserDTO> login() {
+    ResponseEntity<UserInfo> login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        UserDTO response = userService.loadUserByUsername(username);
+        UserInfo response = userService.loadUserByUsername(username);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
