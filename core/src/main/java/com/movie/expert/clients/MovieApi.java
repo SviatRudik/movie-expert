@@ -1,9 +1,9 @@
 package com.movie.expert.clients;
 
+import com.movie.expert.models.ApiResponse;
 import com.movie.expert.models.Movie;
 
-import java.util.List;
 
 public interface MovieApi {
-    List<Movie> searchMovies(String encName);
+    ApiResponse<Movie> searchMovies(String name, Integer page);
 }

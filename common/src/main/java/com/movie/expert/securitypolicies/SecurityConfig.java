@@ -21,7 +21,7 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 public class SecurityConfig {
 
     private final AuthService authService;
-    private AuthEntryPoint authenticationEntryPoint;
+    private final AuthEntryPoint authenticationEntryPoint;
 
     private final PasswordEncoder passwordEncoder;
     private final AuthProvider provider;

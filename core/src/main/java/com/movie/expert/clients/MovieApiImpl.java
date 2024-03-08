@@ -9,8 +9,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Service
 @AllArgsConstructor
@@ -26,16 +26,12 @@ public class MovieApiImpl implements MovieApi {
     }
 
     @Override
-    public List<Movie> searchMovies(String encName) {
-        try {
-            return client().get().uri("/search/movie?query=" + encName + "&include_adult=true&language=en-US&page=1").
-                    retrieve().bodyToMono(new ParameterizedTypeReference<ApiResponse<Movie>>() {
-                    }).block().getResults();
-
-        } catch (NullPointerException ex) {
-            return new ArrayList<>();
-        }
+    public ApiResponse<Movie> searchMovies(String name, Integer page) {
+        String encName = URLEncoder.encode(name, StandardCharsets.UTF_8);
+        return client().get()
+                .uri("/search/movie?query=" + encName + "&include_adult=true&language=en-US&page=" + page)
+                .retrieve().bodyToMono(new ParameterizedTypeReference<ApiResponse<Movie>>() {
+                }).block();
     }
-
 
 }

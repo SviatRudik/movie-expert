@@ -10,7 +10,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ApiResponse<T> {
-@Getter
+    @Getter
     @Setter
     private List<T> results;
+    @Getter
+    @Setter
+    private Integer page;
+    @Getter
+    @Setter
+    private Integer totalPages;
 }

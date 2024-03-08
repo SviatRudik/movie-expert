@@ -18,4 +18,5 @@ public class GlobalExceptionHandler {
     public ResponseEntity<PlatformError> handleException() {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new PlatformError(500, "Internal Server Error"));
     }
+
 }
