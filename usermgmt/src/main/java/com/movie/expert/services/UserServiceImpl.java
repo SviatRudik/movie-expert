@@ -10,7 +10,6 @@ import com.movie.expert.models.exceptions.ValidationException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +22,6 @@ public class UserServiceImpl implements UserService {
     private final UserDAO userDAO;
     private final PasswordEncoder encoder;
     private final Validator validator;
-
-    @Override
-    public UserInfo loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserInfo> optUser = userDAO.loadUserByUsername(username);
-        UsernameNotFoundException ex = new UsernameNotFoundException("User is not found for username: " + username);
-        return optUser.orElseThrow(() -> ex);
-    }
 
     @Override
     public RegistrationResponse register(RegistrationRequest request) throws ValidationException, UniquenessException {
