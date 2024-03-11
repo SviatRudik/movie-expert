@@ -1,10 +1,10 @@
-CREATE TABLE posts
+CREATE TABLE review
 (
     id SERIAL PRIMARY KEY,
     user_id BIGINT NOT NULL,
     title   VARCHAR(100) NOT NULL,
     content TEXT,
-    mark INT NOT NULL,
+    rating INT NOT NULL CHECK (rating > 1 AND rating < 6),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 

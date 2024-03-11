@@ -7,24 +7,14 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class Movie {
+public class ReviewRequest {
     @Getter
     @Setter
     private String title;
     @Getter
     @Setter
-    private Double voteAverage;
+    private Integer rating;
     @Getter
     @Setter
-    private String posterPath;
-    @Getter
-    @Setter
-    private String overview;
-    @Getter
-    @Setter
-    private String releaseDate;
-    @Getter
-    @Setter
-    private String id;
-
+    private String content;
 }
