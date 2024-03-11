@@ -25,6 +25,7 @@ public class SecuritySettings {
 
     private final PasswordEncoder passwordEncoder;
     private final JwtFilter filter;
+    private final AuthEntryPoint authEntryPoint;
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http)
@@ -44,7 +45,8 @@ public class SecuritySettings {
                         authorize.requestMatchers(antMatcher("/users/public/**")).permitAll()
                                 .anyRequest().authenticated()
                 )
-                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPoint));
 
         return http.build();
     }

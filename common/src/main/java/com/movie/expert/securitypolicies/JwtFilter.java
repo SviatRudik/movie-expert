@@ -1,6 +1,7 @@
 package com.movie.expert.securitypolicies;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.movie.expert.models.exceptions.PlatformError;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,8 +18,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 @AllArgsConstructor
@@ -29,8 +28,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        Map<String, Object> errorDetails = new HashMap<>();
-
         try {
             String accessToken = jwtUtil.resolveToken(request);
             if (accessToken == null) {
@@ -47,12 +44,11 @@ public class JwtFilter extends OncePerRequestFilter {
             }
 
         } catch (Exception e) {
-            errorDetails.put("message", "Authentication Error");
-            errorDetails.put("details", e.getMessage());
+            PlatformError err = new PlatformError(401, "Authentication Error:" + e.getMessage() );
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-            mapper.writeValue(response.getWriter(), errorDetails);
+            mapper.writeValue(response.getWriter(), err);
 
         }
         filterChain.doFilter(request, response);
