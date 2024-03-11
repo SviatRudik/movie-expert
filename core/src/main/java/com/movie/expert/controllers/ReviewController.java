@@ -1,7 +1,5 @@
 package com.movie.expert.controllers;
 
-import com.movie.expert.models.ApiResponse;
-import com.movie.expert.models.Movie;
 import com.movie.expert.models.ReviewRequest;
 import com.movie.expert.services.ReviewService;
 import lombok.AllArgsConstructor;

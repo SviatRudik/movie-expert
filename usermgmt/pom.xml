@@ -11,13 +11,13 @@
     <name>usermgmt Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
-    <dependency>
-        <groupId>org.example</groupId>
-        <artifactId>common</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </dependency>
-</dependencies>
-<build>
-<finalName>usermgmt</finalName>
-</build>
-        </project>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>usermgmt</finalName>
+    </build>
+</project>

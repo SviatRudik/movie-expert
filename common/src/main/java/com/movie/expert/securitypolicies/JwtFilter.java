@@ -44,7 +44,7 @@ public class JwtFilter extends OncePerRequestFilter {
             }
 
         } catch (Exception e) {
-            PlatformError err = new PlatformError(401, "Authentication Error:" + e.getMessage() );
+            PlatformError err = new PlatformError(401, "Authentication Error:" + e.getMessage());
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 

@@ -4,7 +4,6 @@ import com.movie.expert.daos.UserDAO;
 import com.movie.expert.models.RegistrationRequest;
 import com.movie.expert.models.RegistrationResponse;
 import com.movie.expert.models.User;
-import com.movie.expert.models.UserInfo;
 import com.movie.expert.models.exceptions.UniquenessException;
 import com.movie.expert.models.exceptions.ValidationException;
 import jakarta.validation.ConstraintViolation;
@@ -13,7 +12,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -48,11 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private void checkUserUniqueness(RegistrationRequest request) throws UniquenessException {
-        Optional<UserInfo> optUsernameUser = userDAO.loadUserByUsername(request.getUsername());
-        Optional<UserInfo> optEmailUser = userDAO.loadUserByEmail(request.getEmail());
-        if (optEmailUser.isPresent()) {
+        boolean isUsernameExists = userDAO.checkUserExistsByUsername(request.getUsername());
+        boolean isEmailExists = userDAO.checkUserExistsByEmail(request.getEmail());
+        if (isEmailExists) {
             throw new UniquenessException("Email is already registered: " + request.getEmail());
-        } else if (optUsernameUser.isPresent()) {
+        } else if (isUsernameExists) {
             throw new UniquenessException("Username is already registered: " + request.getUsername());
         }
     }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @AllArgsConstructor
-public class ReviewDAOImpl implements ReviewDAO{
+public class ReviewDAOImpl implements ReviewDAO {
     private final JdbcTemplate jdbcTemplate;
 
     @Override

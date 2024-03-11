@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:client.properties")
 public class ClientConfig {
     @Setter
     @Getter
