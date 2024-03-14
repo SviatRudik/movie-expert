@@ -22,13 +22,15 @@ public class UserDAOImpl implements UserDAO {
 
     public boolean checkUserExistsByEmail(String email) {
         String query = "SELECT COUNT(*) FROM users WHERE email = ?";
-        int count = jdbcTemplate.queryForObject(query, Integer.class, email);
+        Integer count = jdbcTemplate.queryForObject(query, Integer.class, email);
+
         return count > 0;
     }
 
     public boolean checkUserExistsByUsername(String username) {
         String query = "SELECT COUNT(*) FROM users WHERE username = ?";
-        int count = jdbcTemplate.queryForObject(query, Integer.class, username);
+        Integer count = jdbcTemplate.queryForObject(query, Integer.class, username);
+
         return count > 0;
     }
 

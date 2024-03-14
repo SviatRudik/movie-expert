@@ -19,9 +19,9 @@ import java.util.*;
 
 public class MovieDAOImpl implements MovieDAO {
     private final JdbcTemplate jdbcTemplate;
-    private SimpleJdbcInsert movieInsert;
-    private SimpleJdbcInsert genreInsert;
-    private Integer DEFAULT_PAGE_SIZE = 10;
+    private final SimpleJdbcInsert movieInsert;
+    private final SimpleJdbcInsert genreInsert;
+    private final Integer DEFAULT_PAGE_SIZE = 10;
 
     @Autowired
     public MovieDAOImpl(DataSource datasource) {
@@ -31,7 +31,7 @@ public class MovieDAOImpl implements MovieDAO {
     }
 
     @Override
-    public long addMovie(ExternalMovie movie) {
+    public Long addMovie(ExternalMovie movie) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("title", movie.getTitle());
         parameters.put("release_date", movie.getReleaseDate());
@@ -56,7 +56,7 @@ public class MovieDAOImpl implements MovieDAO {
     }
 
     @Override
-    public void addGenreMovie(long movieId, Integer genreId) {
+    public void addGenreMovie(Long movieId, Integer genreId) {
         String sql =
                 "INSERT INTO movie_genres (movie_id, genre_id) " +
                         "VALUES (?, ?)";
@@ -68,11 +68,12 @@ public class MovieDAOImpl implements MovieDAO {
         String sql = "SELECT id, name " +
                 "FROM genres " +
                 "WHERE name = ?;";
+
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Genre.class), genreName).stream().findAny();
     }
 
     @Override
-    public Optional<Movie> findMovieByExternalId(long externalId) {
+    public Optional<Movie> findMovieByExternalId(Long externalId) {
         String sql = "SELECT m.*, AVG(r.rating) AS rating, STRING_AGG(DISTINCT (g.name),',') AS genres  " +
                 "FROM movies m " +
                 "LEFT JOIN reviews r ON m.id = r.movie_id " +
@@ -80,6 +81,7 @@ public class MovieDAOImpl implements MovieDAO {
                 "LEFT JOIN genres g ON mg.genre_id = g.id " +
                 "WHERE m.external_id = ? " +
                 "GROUP BY m.id";
+
         return jdbcTemplate.query(sql, new MovieRowMapper(), externalId).stream().findAny();
     }
 
@@ -92,6 +94,7 @@ public class MovieDAOImpl implements MovieDAO {
                 "LEFT JOIN movie_genres mg ON m.id = mg.movie_id " +
                 "LEFT JOIN genres g ON mg.genre_id = g.id " +
                 "GROUP BY m.id LIMIT ? OFFSET ?";
+
         return jdbcTemplate.query(sql, new MovieRowMapper(), DEFAULT_PAGE_SIZE, offset);
     }
 
@@ -99,8 +102,8 @@ public class MovieDAOImpl implements MovieDAO {
     public Integer getTotalMoviePageCount() {
         String sql = "SELECT COUNT(*) FROM movies";
         Integer amountOfReviews = jdbcTemplate.queryForObject(sql, Integer.class);
-        Integer result = amountOfReviews / DEFAULT_PAGE_SIZE;
-        return result;
+
+        return amountOfReviews / DEFAULT_PAGE_SIZE;
     }
 
     private static class MovieRowMapper implements RowMapper<Movie> {

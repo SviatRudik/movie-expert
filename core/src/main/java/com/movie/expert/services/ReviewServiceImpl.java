@@ -18,8 +18,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     @Transactional
-    public void createReview(ReviewRequest request, long userId) {
-        long movieId = movieService.getOrCreateMovieId(request.getExternalMovieId());
+    public void createReview(ReviewRequest request, Long userId) {
+        Long movieId = movieService.getOrCreateMovieId(request.getExternalMovieId());
 
         reviewDAO.addReview(request, userId, movieId);
     }
@@ -29,14 +29,16 @@ public class ReviewServiceImpl implements ReviewService {
     public ApiResponse<Review> getReviews(Integer page) {
         List<Review> reviews = reviewDAO.getReviews(page);
         Integer pageAmount = reviewDAO.getTotalReviewPageCount();
+
         return new ApiResponse<Review>(reviews, page, pageAmount);
     }
 
     @Override
     @Transactional
-    public ApiResponse<Review> getReviewsOnSubscription(long userId, Integer page) {
+    public ApiResponse<Review> getReviewsOnSubscription(Long userId, Integer page) {
         List<Review> reviews = reviewDAO.getReviewsOnSubscription(userId, page);
         Integer pageAmount = reviewDAO.getTotalReviewOnSubscriptionPageCount(userId);
+
         return new ApiResponse<Review>(reviews, page, pageAmount);
     }
 }

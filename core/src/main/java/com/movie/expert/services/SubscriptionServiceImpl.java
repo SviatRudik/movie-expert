@@ -12,7 +12,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     @Transactional
-    public void subscribe(long userId, long subscribedUserId) {
+    public void subscribe(Long userId, Long subscribedUserId) {
         subscriptionDAO.subscribe(userId, subscribedUserId);
     }
 }

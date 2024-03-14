@@ -8,13 +8,18 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MovieDAO {
-    long addMovie(ExternalMovie movie);
+    Long addMovie(ExternalMovie movie);
+
     Integer addGenre(Genre genre);
-    void addGenreMovie(long movieId, Integer genreId);
+
+    void addGenreMovie(Long movieId, Integer genreId);
+
     Optional<Genre> findGenre(String genreName);
-    Optional<Movie> findMovieByExternalId(long externalId);
+
+    Optional<Movie> findMovieByExternalId(Long externalId);
 
     List<Movie> getMovies(Integer page);
+
     Integer getTotalMoviePageCount();
 
 }

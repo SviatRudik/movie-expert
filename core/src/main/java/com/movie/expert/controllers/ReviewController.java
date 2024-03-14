@@ -21,7 +21,7 @@ public class ReviewController {
 
     @PostMapping
     ResponseEntity createReview(@RequestBody ReviewRequest request, HttpServletRequest req) {
-        long userId = jwtUtil.getId(req);
+        Long userId = jwtUtil.getId(req);
         reviewService.createReview(request, userId);
 
         return ResponseEntity.ok().build();
@@ -30,13 +30,15 @@ public class ReviewController {
     @GetMapping
     ResponseEntity<ApiResponse<Review>> getReviews(@RequestParam(name = "page", defaultValue = DEFAULT_PAGE, required = false) Integer page) {
         ApiResponse<Review> result = reviewService.getReviews(page);
+
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/subscription")
     ResponseEntity<ApiResponse<Review>> getReviewsOnSubscription(@RequestParam(name = "page", defaultValue = DEFAULT_PAGE, required = false) Integer page, HttpServletRequest req) {
-        long userId = jwtUtil.getId(req);
+        Long userId = jwtUtil.getId(req);
         ApiResponse<Review> result = reviewService.getReviewsOnSubscription(userId, page);
+
         return ResponseEntity.ok(result);
     }
 }

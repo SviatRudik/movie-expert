@@ -1,5 +1,5 @@
 package com.movie.expert.daos;
 
 public interface SubscriptionDAO {
-    void subscribe(long userId, long subscribedUserId);
+    void subscribe(Long userId, Long subscribedUserId);
 }

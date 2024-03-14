@@ -21,6 +21,7 @@ public class MovieServiceImpl implements MovieService {
     public ApiResponse<Movie> searchMovies(String name, Integer page) {
         ApiResponse<ExternalMovie> apiResponse = movieApi.searchMovies(name, page);
         List<Movie> movies = apiResponse.getResults().stream().map(Movie::new).toList();
+
         return new ApiResponse<Movie>(movies, apiResponse.getPage(), apiResponse.getTotalPages());
     }
 
@@ -38,6 +39,7 @@ public class MovieServiceImpl implements MovieService {
     public ApiResponse<Movie> getMoviesWithReviews(Integer page) {
         List<Movie> reviews = movieDAO.getMovies(page);
         Integer pageAmount = movieDAO.getTotalMoviePageCount();
+
         return new ApiResponse<Movie>(reviews, page, pageAmount);
     }
 

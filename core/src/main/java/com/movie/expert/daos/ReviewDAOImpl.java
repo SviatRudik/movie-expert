@@ -17,7 +17,7 @@ public class ReviewDAOImpl implements ReviewDAO {
     private final Integer DEFAULT_PAGE_SIZE = 10;
 
     @Override
-    public void addReview(ReviewRequest req, long userId, long movieId) {
+    public void addReview(ReviewRequest req, Long userId, Long movieId) {
         String sql =
                 "INSERT INTO reviews (user_id, movie_id, title, rating, content, created_at) " +
                         "VALUES (?, ?, ?, ?,?, ?)";
@@ -28,6 +28,7 @@ public class ReviewDAOImpl implements ReviewDAO {
     public List<Review> getReviews(Integer page) {
         Integer offset = (page - 1) * DEFAULT_PAGE_SIZE;
         String sql = "SELECT * FROM reviews ORDER BY created_at DESC LIMIT ? OFFSET ? ";
+
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Review.class), DEFAULT_PAGE_SIZE, offset);
     }
 
@@ -35,12 +36,12 @@ public class ReviewDAOImpl implements ReviewDAO {
     public Integer getTotalReviewPageCount() {
         String sql = "SELECT COUNT(*) FROM reviews";
         Integer amountOfReviews = jdbcTemplate.queryForObject(sql, Integer.class);
-        Integer result = amountOfReviews / DEFAULT_PAGE_SIZE;
-        return result;
+
+        return amountOfReviews / DEFAULT_PAGE_SIZE;
     }
 
     @Override
-    public List<Review> getReviewsOnSubscription(long userId, Integer page) {
+    public List<Review> getReviewsOnSubscription(Long userId, Integer page) {
         Integer offset = (page - 1) * DEFAULT_PAGE_SIZE;
         String sql = "SELECT r.* " +
                 "FROM reviews r " +
@@ -48,17 +49,18 @@ public class ReviewDAOImpl implements ReviewDAO {
                 "WHERE s.subscribed_user_id = ?  " +
                 "ORDER BY r.created_at DESC " +
                 "LIMIT ? OFFSET ?";
+
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Review.class), userId, DEFAULT_PAGE_SIZE, offset);
     }
 
     @Override
-    public Integer getTotalReviewOnSubscriptionPageCount(long userId) {
+    public Integer getTotalReviewOnSubscriptionPageCount(Long userId) {
         String sql = "SELECT COUNT(*) " +
                 "FROM reviews r " +
                 "JOIN subscriptions s ON r.user_id = s.subscribed_user_id " +
                 "WHERE s.user_id = ?  ";
         Integer amountOfReviews = jdbcTemplate.queryForObject(sql, Integer.class, userId);
-        Integer result = amountOfReviews / DEFAULT_PAGE_SIZE;
-        return result;
+
+        return amountOfReviews / DEFAULT_PAGE_SIZE;
     }
 }

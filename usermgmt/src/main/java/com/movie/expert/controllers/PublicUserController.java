@@ -34,7 +34,8 @@ public class PublicUserController {
         User user = (User) auth.getPrincipal();
         String token = jwtUtil.createToken(user);
         LoginResponse loginRes = new LoginResponse(request.getUsername(), token);
-        return ResponseEntity.status(HttpStatus.OK).body(loginRes);
+
+        return ResponseEntity.ok(loginRes);
     }
 
 

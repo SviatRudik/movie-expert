@@ -6,7 +6,7 @@ public class UniquenessException extends PlatformException {
     private final Integer errorCode;
 
     private final String errorMsg;
-    public static final int ERROR_CODE = 1;
+    public static final Integer ERROR_CODE = 1;
 
     public UniquenessException(String msg) {
         this.errorMsg = msg;

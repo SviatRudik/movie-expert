@@ -10,7 +10,7 @@ public class SubscriptionDAOImpl implements SubscriptionDAO {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void subscribe(long userId, long subscribedUserId) {
+    public void subscribe(Long userId, Long subscribedUserId) {
         String sql =
                 "INSERT INTO subscriptions (user_id, subscribed_user_id) " +
                         "VALUES (?, ?)";

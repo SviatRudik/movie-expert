@@ -35,7 +35,7 @@ public class MovieApiImpl implements MovieApi {
     }
 
     @Override
-    public ExternalMovie searchMoviesById(long movieId) {
+    public ExternalMovie searchMoviesById(Long movieId) {
         return client().get()
                 .uri("/movie/" + movieId + "?language=en-US")
                 .retrieve().bodyToMono(new ParameterizedTypeReference<ExternalMovie>() {

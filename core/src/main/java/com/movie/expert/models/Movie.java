@@ -27,13 +27,13 @@ public class Movie {
     private String releaseDate;
     @Getter
     @Setter
-    private long id;
+    private Long id;
     @Getter
     @Setter
     private List<Genre> genres;
     @Getter
     @Setter
-    private long externalId;
+    private Long externalId;
     @Getter
     @Setter
     private Double rating;

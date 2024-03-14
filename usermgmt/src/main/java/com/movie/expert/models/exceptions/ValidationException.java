@@ -5,7 +5,7 @@ public class ValidationException extends PlatformException {
     private final Integer errorCode;
 
     private final String errorMsg;
-    public static final int ERROR_CODE = 2;
+    public static final Integer ERROR_CODE = 2;
 
     public ValidationException(String msg) {
         this.errorMsg = msg;

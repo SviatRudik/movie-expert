@@ -11,7 +11,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Getter
     @Setter
-    private long id;
+    private Long id;
     @Getter
     @Setter
     private String username;
@@ -37,15 +37,4 @@ public class User implements UserDetails {
     @Setter
     private boolean enabled;
 
-
-    public User(long id, String username, String password, String email, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.accountNonExpired = accountNonExpired;
-        this.accountNonLocked = accountNonLocked;
-        this.credentialsNonExpired = credentialsNonExpired;
-        this.enabled = enabled;
-    }
 }

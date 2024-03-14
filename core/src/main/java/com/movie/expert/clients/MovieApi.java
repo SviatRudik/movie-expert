@@ -7,5 +7,5 @@ import com.movie.expert.models.ExternalMovie;
 public interface MovieApi {
     ApiResponse<ExternalMovie> searchMovies(String name, Integer page);
 
-    ExternalMovie searchMoviesById(long movieId);
+    ExternalMovie searchMoviesById(Long movieId);
 }

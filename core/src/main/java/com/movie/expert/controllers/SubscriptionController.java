@@ -18,9 +18,10 @@ public class SubscriptionController {
     private final JwtUtil jwtUtil;
 
     @GetMapping
-    ResponseEntity subscribe(@RequestParam(name = "userId") long userId, HttpServletRequest req) {
-        long subscribedUserId = jwtUtil.getId(req);
+    ResponseEntity subscribe(@RequestParam(name = "userId") Long userId, HttpServletRequest req) {
+        Long subscribedUserId = jwtUtil.getId(req);
         subscriptionService.subscribe(userId, subscribedUserId);
+
         return ResponseEntity.ok().build();
     }
 }
