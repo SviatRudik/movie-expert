@@ -11,7 +11,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Getter
     @Setter
-    private Long id;
+    private long id;
     @Getter
     @Setter
     private String username;
@@ -38,7 +38,7 @@ public class User implements UserDetails {
     private boolean enabled;
 
 
-    public User(Long id, String username, String password, String email, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+    public User(long id, String username, String password, String email, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
         this.id = id;
         this.username = username;
         this.password = password;

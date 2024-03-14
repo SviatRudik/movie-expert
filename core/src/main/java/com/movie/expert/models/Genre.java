@@ -7,17 +7,16 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewRequest {
+public class Genre {
     @Getter
     @Setter
-    private String title;
+    private String name;
     @Getter
     @Setter
-    private Integer rating;
-    @Getter
-    @Setter
-    private String content;
-    @Getter
-    @Setter
-    private Long externalMovieId;
+    private Integer id;
+
+    public Genre(String name) {
+        this.name = name;
+    }
+
 }

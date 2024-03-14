@@ -1,9 +1,11 @@
 package com.movie.expert.clients;
 
 import com.movie.expert.models.ApiResponse;
-import com.movie.expert.models.Movie;
+import com.movie.expert.models.ExternalMovie;
 
 
 public interface MovieApi {
-    ApiResponse<Movie> searchMovies(String name, Integer page);
+    ApiResponse<ExternalMovie> searchMovies(String name, Integer page);
+
+    ExternalMovie searchMoviesById(long movieId);
 }

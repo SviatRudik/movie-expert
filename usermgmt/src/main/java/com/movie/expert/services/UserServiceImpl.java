@@ -11,6 +11,7 @@ import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private final Validator validator;
 
     @Override
+    @Transactional
     public RegistrationResponse register(RegistrationRequest request) throws ValidationException, UniquenessException {
         validateRequest(request);
         checkUserUniqueness(request);

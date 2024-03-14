@@ -42,7 +42,7 @@ public class SecuritySettings {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers(antMatcher("/users/public/**")).permitAll()
+                        authorize.requestMatchers(antMatcher("/public/**")).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)

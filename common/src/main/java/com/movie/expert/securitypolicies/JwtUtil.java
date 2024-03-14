@@ -74,8 +74,8 @@ public class JwtUtil {
         }
     }
 
-    public Long getId(HttpServletRequest req) {
-        return resolveClaims(req).get("id", Long.class);
+    public long getId(HttpServletRequest req) {
+        return resolveClaims(req).get("id", long.class);
     }
 
 }

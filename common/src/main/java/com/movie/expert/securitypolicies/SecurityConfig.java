@@ -12,7 +12,7 @@ public class SecurityConfig {
     @Value("${security.validity}")
     @Getter
     @Setter
-    private Long validity;
+    private long validity;
 
     @Value("${security.secret}")
     @Getter

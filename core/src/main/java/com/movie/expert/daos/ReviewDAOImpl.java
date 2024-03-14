@@ -1,20 +1,64 @@
 package com.movie.expert.daos;
 
+import com.movie.expert.models.Review;
 import com.movie.expert.models.ReviewRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 @AllArgsConstructor
 public class ReviewDAOImpl implements ReviewDAO {
     private final JdbcTemplate jdbcTemplate;
+    private final Integer DEFAULT_PAGE_SIZE = 10;
 
     @Override
-    public void addReview(ReviewRequest req, Integer userId) {
+    public void addReview(ReviewRequest req, long userId, long movieId) {
         String sql =
-                "INSERT INTO reviews (user_id, title, rating, content) " +
-                        "VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, userId, req.getTitle(), req.getRating(), req.getContent());
+                "INSERT INTO reviews (user_id, movie_id, title, rating, content, created_at) " +
+                        "VALUES (?, ?, ?, ?,?, ?)";
+        jdbcTemplate.update(sql, userId, movieId, req.getTitle(), req.getRating(), req.getContent(), LocalDateTime.now());
+    }
+
+    @Override
+    public List<Review> getReviews(Integer page) {
+        Integer offset = (page - 1) * DEFAULT_PAGE_SIZE;
+        String sql = "SELECT * FROM reviews ORDER BY created_at DESC LIMIT ? OFFSET ? ";
+        return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Review.class), DEFAULT_PAGE_SIZE, offset);
+    }
+
+    @Override
+    public Integer getTotalReviewPageCount() {
+        String sql = "SELECT COUNT(*) FROM reviews";
+        Integer amountOfReviews = jdbcTemplate.queryForObject(sql, Integer.class);
+        Integer result = amountOfReviews / DEFAULT_PAGE_SIZE;
+        return result;
+    }
+
+    @Override
+    public List<Review> getReviewsOnSubscription(long userId, Integer page) {
+        Integer offset = (page - 1) * DEFAULT_PAGE_SIZE;
+        String sql = "SELECT r.* " +
+                "FROM reviews r " +
+                "JOIN subscriptions s ON r.user_id = s.user_id " +
+                "WHERE s.subscribed_user_id = ?  " +
+                "ORDER BY r.created_at DESC " +
+                "LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Review.class), userId, DEFAULT_PAGE_SIZE, offset);
+    }
+
+    @Override
+    public Integer getTotalReviewOnSubscriptionPageCount(long userId) {
+        String sql = "SELECT COUNT(*) " +
+                "FROM reviews r " +
+                "JOIN subscriptions s ON r.user_id = s.subscribed_user_id " +
+                "WHERE s.user_id = ?  ";
+        Integer amountOfReviews = jdbcTemplate.queryForObject(sql, Integer.class, userId);
+        Integer result = amountOfReviews / DEFAULT_PAGE_SIZE;
+        return result;
     }
 }

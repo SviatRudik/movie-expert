@@ -2,7 +2,7 @@ package com.movie.expert.clients;
 
 import com.movie.expert.configs.ClientConfig;
 import com.movie.expert.models.ApiResponse;
-import com.movie.expert.models.Movie;
+import com.movie.expert.models.ExternalMovie;
 import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
@@ -26,12 +26,19 @@ public class MovieApiImpl implements MovieApi {
     }
 
     @Override
-    public ApiResponse<Movie> searchMovies(String name, Integer page) {
+    public ApiResponse<ExternalMovie> searchMovies(String name, Integer page) {
         String encName = URLEncoder.encode(name, StandardCharsets.UTF_8);
         return client().get()
                 .uri("/search/movie?query=" + encName + "&include_adult=true&language=en-US&page=" + page)
-                .retrieve().bodyToMono(new ParameterizedTypeReference<ApiResponse<Movie>>() {
+                .retrieve().bodyToMono(new ParameterizedTypeReference<ApiResponse<ExternalMovie>>() {
                 }).block();
     }
 
+    @Override
+    public ExternalMovie searchMoviesById(long movieId) {
+        return client().get()
+                .uri("/movie/" + movieId + "?language=en-US")
+                .retrieve().bodyToMono(new ParameterizedTypeReference<ExternalMovie>() {
+                }).block();
+    }
 }
